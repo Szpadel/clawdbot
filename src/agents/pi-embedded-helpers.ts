@@ -481,6 +481,14 @@ export function isTimeoutErrorMessage(raw: string): boolean {
   return matchesErrorPatterns(raw, ERROR_PATTERNS.timeout);
 }
 
+export function isClient4xxErrorMessage(raw: string): boolean {
+  if (!raw) return false;
+  const value = raw.toLowerCase();
+  const matches = value.match(/\b4\d\d\b/g);
+  if (!matches) return false;
+  return matches.some((code) => code !== "413");
+}
+
 export function isBillingErrorMessage(raw: string): boolean {
   const value = raw.toLowerCase();
   if (!value) return false;
